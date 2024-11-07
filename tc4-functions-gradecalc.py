@@ -56,10 +56,20 @@ def main():
             else: 
                 print("This is not a valid grade entry, try again.")
                 validGrade==False
-    
+    def getMod():
+        validMod=False 
+        while validMod==False:
+            modifier=input("Please enter a modifier (+, - or nothing) : ")
+            if modifier=="-" or modifier=="+" or modifier=="": 
+                validMod==True
+                return modifier
+            else: 
+                print("This is not a valid modifier entry, try again.") 
+                validMod==False
+
     for i in range(0, len(classes)):
         letterGrade=getLetter()
-        modifier=input("Please enter a modifier (+, - or nothing) : ")
+        modifier=getMod()
         numericGrade= gradeCalc()
         grades.insert(i, numericGrade)  
 
