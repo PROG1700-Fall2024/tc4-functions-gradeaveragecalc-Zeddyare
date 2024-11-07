@@ -46,9 +46,19 @@ def main():
                 numericGrade -= 0.3 
         return numericGrade
     
-
+    def getLetter():
+        validGrade=False 
+        while validGrade==False:
+            letterGrade=input("\nPlease enter a letter grade for {0}: ".format(classes[i])).upper()
+            if letterGrade=="A" or letterGrade=="B" or letterGrade=="C" or letterGrade=="D" or letterGrade=="F": 
+                validGrade==True
+                return letterGrade
+            else: 
+                print("This is not a valid grade entry, try again.")
+                validGrade==False
+    
     for i in range(0, len(classes)):
-        letterGrade=input("\nPlease enter a letter grade for {0}: ".format(classes[i])).upper()
+        letterGrade=getLetter()
         modifier=input("Please enter a modifier (+, - or nothing) : ")
         numericGrade= gradeCalc()
         grades.insert(i, numericGrade)  
