@@ -4,7 +4,7 @@
 # to calculate a final grade point average for all six courses.
 ############################################
 
-# Student Name: 
+# Student Name: Zachary Rudolf
 
 # main() FUNCTION
 def main():
@@ -13,39 +13,63 @@ def main():
     print("Valid letter grades that can be entered: A, B, C, D, F.")
     print("Valid grade modifiers are +, - or nothing.")
     print("All letter grades except F can include a + or - symbol.")
-    print("Calculated grade point value cannot exceed 4.0.\n")
+    print("Calculated grade point value cannot exceed 4.0.")
 
     numericGrade = 0.0
-
-    #Gather user inputs
-    letterGrade = input("Please enter a letter grade : ").upper()
-    modifier = input("Please enter a modifier (+, - or nothing) : ")
-
+    letterGrade= ""
+    modifier=0.0
+    classes=["PROG 1700", "NETW1700", "OSYS1200", "WEBD1000", "COMM1700", "DBAS1007"]
+    grades=[]
+    #Gather user inputs 
+    def gradeCalc():
     # Determine base numeric value of the grade
-    if letterGrade == "A":
-        numericGrade = 4.0
-    elif letterGrade == "B":
-        numericGrade = 3.0
-    elif letterGrade == "C":
-        numericGrade = 2.0
-    elif letterGrade == "D":
-        numericGrade = 1.0
-    elif letterGrade == "F":
-        numericGrade = 0.0
-    else:
-        #If an invalid entry is made
-        print("You entered an invalid letter grade.")
+        if letterGrade == "A":
+            numericGrade = 4.0
+        elif letterGrade == "B":
+            numericGrade = 3.0
+        elif letterGrade == "C":
+            numericGrade = 2.0
+        elif letterGrade == "D":
+            numericGrade = 1.0
+        elif letterGrade == "F":
+            numericGrade = 0.0
+        else:
+            #If an invalid entry is made
+            print("You entered an invalid letter grade.")
+        
+        # Determine whether to apply a modifier
+        if modifier == "+":
+            if letterGrade != "A" and letterGrade != "F": # Plus is not valid on A or F
+                numericGrade += 0.3
+        elif modifier == "-":
+            if letterGrade != "F":     # Minus is not valid on F
+                numericGrade -= 0.3 
+        return numericGrade
     
-    # Determine whether to apply a modifier
-    if modifier == "+":
-        if letterGrade != "A" and letterGrade != "F": # Plus is not valid on A or F
-            numericGrade += 0.3
-    elif modifier == "-":
-        if letterGrade != "F":     # Minus is not valid on F
-            numericGrade -= 0.3
+
+    for i in range(0, len(classes)):
+        letterGrade=input("\nPlease enter a letter grade for {0}: ".format(classes[i])).upper()
+        modifier=input("Please enter a modifier (+, - or nothing) : ")
+        numericGrade= gradeCalc()
+        grades.insert(i, numericGrade)  
+
 
     # Output final message and result, with formatting
-    print("The numeric value is: {0:.1f}".format(numericGrade))
+    print("\n****************************************\n")
+
+    for i in range(0, len(classes)):
+        print("The numeric value for {0} is: {1:.1f}".format(classes[i], grades[i])) 
+
+    def gpaCalc():
+        gradeTotal=(sum(grades))
+        gpa=gradeTotal/(len(classes))
+        return gpa  
+    
+   
+    gpa=gpaCalc()
+    print("==================================================")
+    print("Your grade point average for the semester is: {0:.1f}".format(gpa))
+    print("==================================================") 
 
 #PROGRAM EXECUTION STARTS HERE
 main()
